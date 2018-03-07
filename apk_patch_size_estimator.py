@@ -259,7 +259,7 @@ def calculate_filebyfile(old_file, new_file, save_patch_path, temp_path):
   # We use a jar from https://github.com/andrewhayden/archive-patcher
   if os.path.exists(filebyfile_patch_path): os.remove(filebyfile_patch_path)
   p = subprocess.Popen(
-      [java_path, '-jar', 'lib/file-by-file-tools.jar', '--generate',
+      [java_path, '-jar', 'file-by-file-tools.jar', '--generate',
        '--old', old_file, '--new', new_file, '--patch', filebyfile_patch_path],
       shell=False)
   ret_code = p.wait()
@@ -328,16 +328,22 @@ def main():
          % (locale.format('%d', new_file_size, grouping=True),
             human_file_size(new_file_size)))
 
+  print ("##teamcity[buildStatisticValue key='Apk size on disk' value='{}']".format(human_file_size(new_file_size)))
+
   print '\nEstimated download size for new installs:'
   print ('   Full new APK (gzipped) size:'
          ' %s bytes [%s]'
          % (locale.format('%d', gzipped_size, grouping=True),
             human_file_size(gzipped_size)))
 
+  print ("##teamcity[buildStatisticValue key='Apk size for new installs' value='{}']".format(human_file_size(gzipped_size)))
+
   print '\nEstimated download size for updates from the old APK, using Bsdiff:'
   print ('   Bsdiff patch (gzipped) size: %s bytes [%s]'
          % (locale.format('%d', bsdiff_size, grouping=True),
             human_file_size(bsdiff_size)))
+
+  print ("##teamcity[buildStatisticValue key='Apk size for updates' value='{}']".format(human_file_size(bsdiff_size)))
 
   print '\nEstimated download size for updates from the old APK,'
   print ' using File-by-File:'

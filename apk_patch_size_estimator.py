@@ -328,7 +328,7 @@ def main():
          % (locale.format('%d', new_file_size, grouping=True),
             human_file_size(new_file_size)))
 
-  print ("##teamcity[buildStatisticValue key='Apk size on disk' value='{}']".format(round(float(new_file_size)/(1024*1024), 2)))
+  print ("##teamcity[buildStatisticValue key='Apk size on disk [MB]' value='{}']".format(round(float(new_file_size)/(1024*1024), 2)))
 
   print '\nEstimated download size for new installs:'
   print ('   Full new APK (gzipped) size:'
@@ -336,14 +336,14 @@ def main():
          % (locale.format('%d', gzipped_size, grouping=True),
             human_file_size(gzipped_size)))
 
-  print ("##teamcity[buildStatisticValue key='Apk size for new installs' value='{}']".format(round(float(gzipped_size)/(1024*1024), 2)))
+  print ("##teamcity[buildStatisticValue key='Apk size for new installs [MB]' value='{}']".format(round(float(gzipped_size)/(1024*1024), 2)))
 
   print '\nEstimated download size for updates from the old APK, using Bsdiff:'
   print ('   Bsdiff patch (gzipped) size: %s bytes [%s]'
          % (locale.format('%d', bsdiff_size, grouping=True),
             human_file_size(bsdiff_size)))
 
-  print ("##teamcity[buildStatisticValue key='Apk size for updates' value='{}']".format(round(float(bsdiff_size)/(1024*1024), 2)))
+  print ("##teamcity[buildStatisticValue key='Apk size for updates [MB]' value='{}']".format(round(float(bsdiff_size)/(1024*1024), 2)))
 
   print '\nEstimated download size for updates from the old APK,'
   print ' using File-by-File:'
